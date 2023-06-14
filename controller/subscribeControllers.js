@@ -26,10 +26,10 @@ const subscribeEmail = async function (req, res, next) {
 };
 
 const sendBulkMail = async function (req, res, next) {
-  const { error } = validateSendBulkMail(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
   try {
+    const { error } = validateSendBulkMail(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
     const subscribe = await Subscribe.find().select("email -_id");
 
     const allEmails = subscribe
@@ -59,14 +59,20 @@ const sendBulkMail = async function (req, res, next) {
   }
 };
 
-const deleteSubscribeEmail = async function (req, res) {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+const deleteSubscribeEmail = async function (req, res, next) {
+  try {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-  const subscribe = await Subscribe.findOneAndDelete({ email: req.body.email });
-  if (!subscribe) return res.status(404).send("Email not subscribed");
+    const subscribe = await Subscribe.findOneAndDelete({
+      email: req.body.email,
+    });
+    if (!subscribe) return res.status(404).send("Email not subscribed");
 
-  res.status(200).send(subscribe);
+    res.status(200).send(subscribe);
+  } catch (ex) {
+    next();
+  }
 };
 
 exports.subscribeEmail = subscribeEmail;
