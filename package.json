@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "18.14"
+  },
   "scripts": {
     "dev": "set Debug=app:* && nodemon index.js",
-    "start": "set Debug=app:* && node index.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
