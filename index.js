@@ -32,7 +32,7 @@ const port = process.env.PORT || 8000;
     dbDebugger(`DB successfully connected to ${process.env.DB_URI}`);
 
     app.listen(port, () => {
-      startupDebugger(`listening to ${port}`);
+      startupDebugger(`listening to port ${port}`);
     });
   } catch (err) {
     console.error(err, err.message, "DB connection failed!!!!");
