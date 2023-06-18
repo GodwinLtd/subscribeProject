@@ -29,10 +29,10 @@ const port = process.env.PORT || 8000;
 (async function () {
   try {
     await mongoose.connect(process.env.DB_URI);
-    dbDebugger(`DB successfully connected to ${process.env.DB_URI}`);
+    console.log(`DB successfully connected to ${process.env.DB_URI}`);
 
     app.listen(port, () => {
-      startupDebugger(`listening to port ${port}`);
+      console.log(`listening to port ${port}`);
     });
   } catch (err) {
     console.error(err, err.message, "DB connection failed!!!!");
