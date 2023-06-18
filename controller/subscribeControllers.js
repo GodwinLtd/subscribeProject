@@ -5,6 +5,19 @@ const {
 } = require("../middleware/subscribe");
 const sendMail = require("../utils/sendMail");
 
+const getSubscribeEmail = async function (req, res, next) {
+  try {
+    const subscribe = await Subscribe.find();
+    if (!subscribe) return res.status(404).send("404 not found");
+
+    await subscribe.save();
+
+    res.status(200).json({ data: subscribe });
+  } catch (ex) {
+    next();
+  }
+};
+
 const subscribeEmail = async function (req, res, next) {
   try {
     const { error } = validate(req.body);
@@ -76,5 +89,6 @@ const deleteSubscribeEmail = async function (req, res, next) {
 };
 
 exports.subscribeEmail = subscribeEmail;
+exports.getSubscribeEmail = getSubscribeEmail;
 exports.sendBulkMail = sendBulkMail;
 exports.deleteSubscribeEmail = deleteSubscribeEmail;

@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 const {
   subscribeEmail,
+  getSubscribeEmail,
   sendBulkMail,
   deleteSubscribeEmail,
 } = require("./controller/subscribeControllers");
@@ -18,6 +19,8 @@ const error = require("./middleware/error");
 const app = express();
 app.use(bodyParser.json());
 
+app.use("/api/subscribeEmail", subscribeEmail, subscribe);
+app.use("/api/subscribeEmail", getSubscribeEmail, subscribe);
 app.use("/api/subscribeEmail", subscribeEmail, subscribe);
 app.use("/api/sendBulkMail", sendBulkMail, bulkMails);
 app.use("/api/deleteSubscribeEmail", deleteSubscribeEmail, deleteMail);
@@ -35,6 +38,6 @@ const port = process.env.PORT || 8000;
       console.log(`listening to port ${port}`);
     });
   } catch (err) {
-    console.error(err, err.message, "DB connection failed!!!!");
+    console.error(err, err.message, "MESSAGE: DB connection failed!!!!");
   }
 })();
