@@ -19,8 +19,7 @@ const error = require("./middleware/error");
 const app = express();
 app.use(bodyParser.json());
 
-app.use("/api/subscribeEmail", subscribeEmail, subscribe);
-app.use("/api/getSubscribeEmail", getSubscribeEmail, subscribe);
+app.use("/api/subscribeEmail", getSubscribeEmail, subscribeEmail, subscribe);
 app.use("/api/sendBulkMail", sendBulkMail, bulkMails);
 app.use("/api/deleteSubscribeEmail", deleteSubscribeEmail, deleteMail);
 
