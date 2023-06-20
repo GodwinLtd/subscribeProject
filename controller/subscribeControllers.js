@@ -10,8 +10,6 @@ const getSubscribeEmail = async function (req, res, next) {
     const subscribe = await Subscribe.find();
     if (!subscribe) return res.status(404).send("404 not found");
 
-    await subscribe.save();
-
     res.status(200).json({ data: subscribe });
   } catch (ex) {
     next();
